@@ -1,2 +1,3 @@
-# closure
-闭包
+# function-4
+
+匿名函数
