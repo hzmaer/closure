@@ -9,6 +9,18 @@
   
   除了每次使用变量都是用var关键字外，我们在实际情况下经常遇到这样一种情况，即有的函数只需要执行一次，其内部变量无需维护，
   
+  (function(){  
+  
+ //块级作用域  
+ 
+  })();  
+
+以上代码定义了一个匿名自执行函数，Javascript将function关键字当作函数声明的开始，而函数声明后面不能跟圆括号。然而，函数表达式的后面可以跟圆括号。要将
+
+函数声明转换为函数表达式，只要加上一对圆括号即可。
+
+这种技术经常在全局作用域中被用在函数外部，从而限制向全局作用域中添加过多的变量和函数，这种做法可以减少闭包占用内存的问题。
+  
   比如UI的初始化，那么我们可以使用闭包：
   
   var datamodel = {    
@@ -145,6 +157,18 @@ jack
           alert(msg);  
           }  
    }  
+ A(); 
+ 
+ 解决方案
+ 
+ function A(){  
+      var a=document.createElement("div");//  
+      var msg="Hello";  
+       a.onclick=function(){  
+          alert(msg);  
+          };  
+       a=null;   
+   } 
  A(); 
  
  以上的闭包会在IE下导致内存泄露，假设A()执行时创建的作用域对象ScopeA，ScopeA引用了DOM对象a,DOM对象a引用了function(aleert(msg))，函数
